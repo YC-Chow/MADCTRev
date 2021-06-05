@@ -14,10 +14,10 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity
 {
-    TextView toastText = findViewById(R.id.toastText);
-    Button toastBtn = findViewById(R.id.toastBtn);
-    Button recyclerBtn = findViewById(R.id.recyclerBtn);
-    Button cdBtn = findViewById(R.id.cdtBtn);
+    TextView toastText;
+    Button toastBtn;
+    Button recyclerBtn;
+    Button cdBtn;
 
 
     @Override
@@ -25,9 +25,12 @@ public class MainActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        toastText = findViewById(R.id.toastText);
+        toastBtn = findViewById(R.id.toastBtn);
+        recyclerBtn = findViewById(R.id.recyclerBtn);
+        cdBtn = findViewById(R.id.cdtBtn);
         //random number generator
         int ranNum = ranInt(10000);
-
         toastBtn.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -48,12 +51,6 @@ public class MainActivity extends AppCompatActivity
         });
 
 
-    }
-
-    @Override
-    protected void onPause(){
-        super.onPause();
-        finish();
     }
     
     private int ranInt(int limit)
