@@ -14,8 +14,8 @@ import java.util.ArrayList;
 
 public class RecyclerViewActivity extends AppCompatActivity
 {
-    Button backBtn = findViewById(R.id.backBtnRV);
-    ArrayList<String> stringList = new ArrayList<>();
+    Button backBtn;
+    ArrayList<String> stringList;
     // needs a array list for adapter
 
     @Override
@@ -24,6 +24,8 @@ public class RecyclerViewActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recycler_view);
 
+        backBtn = findViewById(R.id.backBtnRV);
+        stringList = new ArrayList<>();
         //populate array list
         for (int i = 0; i < 100; i ++){
             stringList.add(String.valueOf(i));

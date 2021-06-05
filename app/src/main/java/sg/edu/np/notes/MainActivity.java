@@ -2,6 +2,7 @@ package sg.edu.np.notes;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -47,6 +48,17 @@ public class MainActivity extends AppCompatActivity
             {
                 Toast.makeText(MainActivity.this, "The ranNum is " + ranNum, Toast.LENGTH_SHORT).show();
                 return false;
+            }
+        });
+        
+        recyclerBtn.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Intent intent = new Intent(MainActivity.this, RecyclerViewActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
 
