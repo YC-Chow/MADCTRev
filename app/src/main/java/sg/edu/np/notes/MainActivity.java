@@ -8,6 +8,7 @@ import android.os.CountDownTimer;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,10 +17,10 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity
 {
-    TextView toastText;
-    Button toastBtn;
-    Button recyclerBtn;
-    Button cdBtn;
+    EditText etUsername, etPassword;
+    Button loginBtn;
+    TextView newUser;
+    DBHandler dbHandler = new DBHandler(this, null, null, 1);
 
 
     @Override
@@ -27,59 +28,55 @@ public class MainActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        toastText = findViewById(R.id.toastText);
-        toastBtn = findViewById(R.id.toastBtn);
-        recyclerBtn = findViewById(R.id.recyclerBtn);
-        cdBtn = findViewById(R.id.cdtBtn);
-        //random number generator
-        int ranNum = ranInt(10000);
-        toastBtn.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                Toast.makeText(MainActivity.this, "The ranNum is " + ranNum, Toast.LENGTH_SHORT).show();
-            }
-        });
+        etUsername = findViewById(R.id.userUsername);
+        etPassword = findViewById(R.id.userPassword);
+        loginBtn = findViewById(R.id.loginBtn);
+        newUser = findViewById(R.id.newUserText);
 
-        toastText.setOnTouchListener(new View.OnTouchListener()
-        {
+        newUser.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public boolean onTouch(View v, MotionEvent event)
-            {
-                Toast.makeText(MainActivity.this, "The ranNum is " + ranNum, Toast.LENGTH_SHORT).show();
+            public boolean onTouch(View v, MotionEvent event) {
+                Intent intent = new Intent(MainActivity.this, SignUpActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(intent);
+                finish();
                 return false;
             }
         });
-        
-        recyclerBtn.setOnClickListener(new View.OnClickListener()
-        {
+
+        loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
-                Intent intent = new Intent(MainActivity.this, RecyclerViewActivity.class);
-                startActivity(intent);
-                finish();
+            public void onClick(View v) {
+                String username = etUsername.getText().toString();
+                String password = etPassword.getText().toString();
+                if (username == "" || password == "")
+                {
+                    Toast.makeText(MainActivity.this, "Please enter username and password!", Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    UserData userQuery = dbHandler.findUser(username);
+                    if (userQuery == null)
+                    {
+                        Toast.makeText(MainActivity.this, "wrong username or password", Toast.LENGTH_SHORT).show();
+                    }
+                    else
+                    {
+                        if(username.equals(userQuery.getUsername()) && password.equals(userQuery.getPassword()))
+                        {
+                            Toast.makeText(MainActivity.this,"login successful", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(MainActivity.this, MenuActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+                        else
+                        {
+                            Toast.makeText(MainActivity.this, "wrong username or password", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
             }
         });
 
-        cdBtn.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                Intent intent = new Intent(MainActivity.this, CountDownStartActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
-
-    }
-    
-    private int ranInt(int limit)
-    {
-        Random random = new Random();
-        int ranNum = random.nextInt(limit);
-        return ranNum;
     }
 }

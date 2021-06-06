@@ -43,7 +43,7 @@ public class CountDownMainActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                Intent intent = new Intent(CountDownMainActivity.this, MainActivity.class);
+                Intent intent = new Intent(CountDownMainActivity.this, MenuActivity.class);
                 startActivity(intent);
                 finish();
             }
