@@ -22,6 +22,7 @@ public class MenuActivity extends AppCompatActivity
     Button cdBtn;
     Button signOutBtn;
     Button alertBtn;
+    Button sharedBtn;
 
 
     @Override
@@ -35,6 +36,7 @@ public class MenuActivity extends AppCompatActivity
         cdBtn = findViewById(R.id.cdtBtn);
         signOutBtn = findViewById(R.id.signOutBtn);
         alertBtn = findViewById(R.id.alertBtn);
+        sharedBtn = findViewById(R.id.sharedBtn);
 
         //random number generator
         int ranNum = ranInt(10000);
@@ -89,6 +91,15 @@ public class MenuActivity extends AppCompatActivity
             public void onClick(View v) {
                 Toast.makeText(MenuActivity.this, "Sign out successfully!", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(MenuActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        sharedBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MenuActivity.this, SharedPrefStartActivity.class);
                 startActivity(intent);
                 finish();
             }
